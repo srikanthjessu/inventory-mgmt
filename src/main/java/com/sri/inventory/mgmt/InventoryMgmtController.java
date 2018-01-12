@@ -56,7 +56,7 @@ public class InventoryMgmtController {
     		//updating profit value after this selling
     		double profitByThisSell = (item.getSellPrice()-item.getCostPrice())*quantity;
     		
-    		Profit profit = profitRepository.findTopById();
+    		Profit profit = profitRepository.findTop1ByOrderByIdDesc();
     		//if there are no records of profit yet, then create one
     		if(profit == null) {
     			profit = new Profit();
@@ -81,7 +81,7 @@ public class InventoryMgmtController {
     	
     	List<Item> items =  itemRepository.findAll();
     	
-    	Profit profit = profitRepository.findTopById();
+    	Profit profit = profitRepository.findTop1ByOrderByIdDesc();
     	//if there are no records of profit yet, then create one
 		if(profit == null) {
 			profit = new Profit();
@@ -91,7 +91,7 @@ public class InventoryMgmtController {
 		report.setItems(items);
 		report.setProfit(profit);
     	
-       	return  new ResponseEntity<Report>(new Report(), HttpStatus.OK);
+       	return  new ResponseEntity<Report>(report, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, path="/item/{name}")
@@ -108,7 +108,7 @@ public class InventoryMgmtController {
     		
     		//updating profit value after this deleting
     		double lossByThisDelete = (item.getCostPrice())*item.getQuantity();
-    		Profit profit = profitRepository.findTopById();
+    		Profit profit = profitRepository.findTop1ByOrderByIdDesc();
     		//if there are no records of profit yet, then create one
     		if(profit == null) {
     			profit = new Profit();

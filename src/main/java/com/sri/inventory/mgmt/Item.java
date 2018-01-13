@@ -16,6 +16,7 @@ public class Item {
 	private double costPrice;
 	private double sellPrice;
 	private int quantity;
+	private double value;
 	
 	Item(){// jpa only
 	}
@@ -57,5 +58,12 @@ public class Item {
 		this.quantity = quantity;
 	}
 
-	
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
 }

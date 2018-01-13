@@ -38,6 +38,7 @@ public class InventoryMgmtController {
     	if(!CollectionUtils.isEmpty(items) && items.size()==1) {
     		Item item = items.get(0);
     		item.setQuantity(item.getQuantity()+quantity);
+    		item.setValue(item.getQuantity()*item.getCostPrice());
     		return  new ResponseEntity<Item>(itemRepository.save(item), HttpStatus.OK);
     	}else {
     		return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
@@ -51,6 +52,7 @@ public class InventoryMgmtController {
     	if(!CollectionUtils.isEmpty(items) && items.size()==1) {
     		Item item = items.get(0);
     		item.setQuantity(item.getQuantity()-quantity);
+    		item.setValue(item.getQuantity()*item.getCostPrice());
     		itemRepository.save(item);
     		
     		//updating profit value after this selling

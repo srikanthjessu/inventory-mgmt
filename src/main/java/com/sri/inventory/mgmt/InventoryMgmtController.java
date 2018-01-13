@@ -92,6 +92,9 @@ public class InventoryMgmtController {
 		Report report = new Report();
 		report.setItems(items);
 		report.setProfit(profit);
+		
+		//creating new record for next report
+		profitRepository.save(new Profit());
     	
        	return  new ResponseEntity<Report>(report, HttpStatus.OK);
     }

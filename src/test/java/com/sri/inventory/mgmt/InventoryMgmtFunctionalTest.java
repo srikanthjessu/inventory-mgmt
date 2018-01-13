@@ -29,14 +29,37 @@ public class InventoryMgmtFunctionalTest {
 
 		
 		Response response = given()
-				.when()
-				.get("http://localhost:8080/inventory-mgr/report");
+							.when()
+							.get("http://localhost:8080/inventory-mgr/report");
 		
 		printResponse(response);
 		
 		
+		delete("Book01");
+		updateSell("Tab01", 5);
+		createItem("Mobile01", 10.51, 44.56);
+		updateBuy("Mobile01", 250);
+		updateSell("Food01", 5);
+		updateSell("Mobile01", 4);
+		updateSell("Med01", 10);
+
+		Response response1 = given()
+							.when()
+							.get("http://localhost:8080/inventory-mgr/report");
+
+		printResponse(response1);
+		
+		
+		
 	}
 	
+	private Response delete(String name) {
+		return given()
+				.when()
+				.delete(getURL() + "item/" + name);
+		
+	}
+
 	private Response updateBuy(String name, int quantity) {
 		return given()
 				.parameters("quantity", quantity)

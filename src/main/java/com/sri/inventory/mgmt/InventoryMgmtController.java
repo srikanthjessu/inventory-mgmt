@@ -82,6 +82,11 @@ public class InventoryMgmtController {
    	ResponseEntity<Report> getReport() {
     	
     	List<Item> items =  itemRepository.findAll();
+    	double totalValue = 0;
+    	
+    	if(items != null) {
+    		totalValue= items.stream().mapToDouble(item -> item.getValue()).sum();
+    	}
     	
     	Profit profit = profitRepository.findTop1ByOrderByIdDesc();
     	//if there are no records of profit yet, then create one
@@ -91,6 +96,7 @@ public class InventoryMgmtController {
 		
 		Report report = new Report();
 		report.setItems(items);
+		report.setTotalValue(totalValue);
 		report.setProfit(profit);
 		
 		//creating new record for next report
